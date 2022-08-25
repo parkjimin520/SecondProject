@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    app:umanoPanelHeight="20dp"
+    app:umanoShadowHeight="4dp"
+    app:umanoDragView="@id/dragView"
+    android:id="@+id/slidingPanel">
+
+
+    //메인화면
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/play_toolbar"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"/>
+            <Button
+                android:id="@+id/previous"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="←" />
+            <Button
+                android:id="@+id/next"
+                android:text="→"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/figureImage"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"/>
+        <TextView
+            android:id="@+id/keyword"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="50"
+            android:progress="0"/>
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/play_button"
+                android:text="재생"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/play_icon"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_marginLeft="10dp"
+                android:id="@+id/pause_button"
+                android:text="일시정지"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pause_icon"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_marginLeft="10dp"
+                android:id="@+id/stop_button"
+                android:text="멈춤"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/stop_icon"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:scaleType="fitXY"/>
+
+            <Button
+                android:layout_marginLeft="100dp"
+                android:id="@+id/timer"
+                android:text="시작"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DDD8D8">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
+
+    </LinearLayout>
+
+    //SlidingUpPanel
+    <LinearLayout
+        android:id="@+id/dragView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="false"
+        android:orientation="vertical"
+        android:background="#D2DADD">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center|top">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="↑SlidingUpPanel↑"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
