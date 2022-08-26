@@ -40,6 +40,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -595,45 +596,63 @@ public class PlayActivity extends AppCompatActivity {
 
         //슬라이딩패널----------------
         SlidingUpPanelLayout slidingUpPanelLayout = (SlidingUpPanelLayout)findViewById(R.id.slidingPanel);
-        slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-
-            }
-
-            @Override
-            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                SlidingUpPanelLayout.PanelState state = slidingUpPanelLayout.getPanelState();
-
-            }
-        });
-
         recyclerView = (RecyclerView)findViewById(R.id.rv2);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 4);//한줄에 4개씩
-        recyclerView.setLayoutManager(mLayoutManager);
+//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 4);//한줄에 4개씩
+//        recyclerView.setLayoutManager(mLayoutManager);
+
+        recyclerView.addItemDecoration(new GridItemDecoration(30));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         arrayList = new ArrayList<>();
         arrayList.add(new SlidingList(R.drawable.lush1));
         arrayList.add(new SlidingList(R.drawable.lush2));
         arrayList.add(new SlidingList(R.drawable.lush3));
         arrayList.add(new SlidingList(R.drawable.lush4));
-        arrayList.add(new SlidingList(R.drawable.lush5));
+        arrayList.add(new SlidingList(R.drawable.lush1));
+        arrayList.add(new SlidingList(R.drawable.lush2));
+        arrayList.add(new SlidingList(R.drawable.lush3));
+        arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush1));
+        arrayList.add(new SlidingList(R.drawable.lush2));
+        arrayList.add(new SlidingList(R.drawable.lush3));
+        arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush1));
+        arrayList.add(new SlidingList(R.drawable.lush2));
+        arrayList.add(new SlidingList(R.drawable.lush3));
+        arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush1));
+        arrayList.add(new SlidingList(R.drawable.lush2));
+        arrayList.add(new SlidingList(R.drawable.lush3));
+        arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush1));
+        arrayList.add(new SlidingList(R.drawable.lush2));
+        arrayList.add(new SlidingList(R.drawable.lush3));
+        arrayList.add(new SlidingList(R.drawable.lush4));
+
 
         slidingAdapter = new SlidingAdapter(arrayList);
         slidingAdapter.setOnItemClickListener(new SlidingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
                 if(pos == 0){
-                    SlidingUpPanelLayout.PanelState state = SlidingUpPanelLayout.PanelState.COLLAPSED;
                     mp.seekTo(0);
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
                 }else if(pos == 1){
-                    mp.seekTo(5000);
+                    mp.seekTo(57000);
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
                 }else if(pos == 2){
-                    mp.seekTo(104000);//1분44초 == 104초
+                    mp.seekTo(138000);//2분18초 == 138초
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
-
+                }else if(pos == 3){
+                    mp.seekTo(198000);//1분44초 == 104초
+                    timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                }else if(pos == 4){
+                    mp.seekTo(277000);
+                    timeText.setText(timeFormat.format(mp.getCurrentPosition()));
                 }
             }
         });

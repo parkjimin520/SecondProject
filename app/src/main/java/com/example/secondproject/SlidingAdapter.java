@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class SlidingAdapter extends RecyclerView.Adapter<SlidingAdapter.CustonViewHolder> {
+public class SlidingAdapter extends RecyclerView.Adapter<SlidingAdapter.CustonViewHolder>{
 
     Context context;
 
@@ -41,8 +41,8 @@ public class SlidingAdapter extends RecyclerView.Adapter<SlidingAdapter.CustonVi
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slidinglist,parent,false);
-        CustonViewHolder holder = new CustonViewHolder(view);
 
+        CustonViewHolder holder = new CustonViewHolder(view);
         return holder;
     }
 
@@ -86,4 +86,6 @@ public class SlidingAdapter extends RecyclerView.Adapter<SlidingAdapter.CustonVi
             imageView.setImageResource(item.getImg());
         }
     }
+
+
 }
