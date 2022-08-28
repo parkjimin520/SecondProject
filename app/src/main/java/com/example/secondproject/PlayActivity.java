@@ -57,15 +57,28 @@ import java.util.ArrayList;
 //유퀴즈 러쉬
 public class PlayActivity extends AppCompatActivity {
 
+    //프로그레스바 구간
+    private float totalSpan = 1500;
+    private float redSpan = 180;
+    private float blueSpan = 180;
+    private float greenSpan = 180;
+    private float yellowSpan = 180;
+    private float darkGreySpan;
+
+    private ArrayList<ProgressItem> progressItemList;
+    private ProgressItem mProgressItem;
+    CustomSeekBar seekBar;
+
+
+    //슬라이딩패널
     private ArrayList<SlidingList> arrayList;
     private SlidingAdapter slidingAdapter;
     private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
 
     int Time; //이미지 매핑 범위
 
     MediaPlayer mp;
-    SeekBar seekBar;
+//    SeekBar seekBar;
     boolean isPlaying = false; //재생중인지 확인할 변수
     TextView timeText; //재생바의 타임스탬프
 
@@ -114,6 +127,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+
         timer = (Button)findViewById(R.id.timer);
         //음악 뷰
         timeText = (TextView) findViewById(R.id.timeText);
@@ -145,7 +159,10 @@ public class PlayActivity extends AppCompatActivity {
 
 
         //시크바
-        seekBar = (SeekBar) findViewById(R.id.seekbar);
+        seekBar = ((CustomSeekBar) findViewById(R.id.seekbar));
+        initDataToSeekbar();
+
+//        seekBar = (SeekBar) findViewById(R.id.seekbar);
         seekBar.setVisibility(ProgressBar.VISIBLE);
         seekBar.setMax(mp.getDuration());
 
@@ -673,6 +690,43 @@ public class PlayActivity extends AppCompatActivity {
 
 
     } //OnCreate
+
+    private void initDataToSeekbar() {
+        progressItemList = new ArrayList<ProgressItem>();
+        // red span
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = ((redSpan / totalSpan) * 100);
+        Log.i("Mainactivity", mProgressItem.progressItemPercentage + "");
+        mProgressItem.color = android.R.color.holo_red_dark;
+        progressItemList.add(mProgressItem);
+        // blue span
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = (blueSpan / totalSpan) * 100;
+        mProgressItem.color = android.R.color.holo_orange_dark;
+        progressItemList.add(mProgressItem);
+        // green span
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = (greenSpan / totalSpan) * 100;
+        mProgressItem.color = android.R.color.holo_orange_light;
+        progressItemList.add(mProgressItem);
+        // yellow span
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = (yellowSpan / totalSpan) * 100;
+        mProgressItem.color = android.R.color.holo_blue_dark;
+        progressItemList.add(mProgressItem);
+        // greyspan
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = (darkGreySpan / totalSpan) * 100;
+        mProgressItem.color = R.color.teal_700;
+        progressItemList.add(mProgressItem);
+
+        if(seekBar == null){
+            Log.i("test","널널널널");
+        }
+        seekBar.initData(progressItemList);
+        seekBar.invalidate();
+    }
+
 
 
     @Override

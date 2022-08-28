@@ -2,6 +2,7 @@ package com.example.secondproject;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -9,6 +10,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import github.hongbeomi.dividerseekbar.DividerSeekBar;
 
 public class Pid extends AppCompatActivity {
 
@@ -19,6 +22,35 @@ public class Pid extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pid);
+
+        DividerSeekBar dividerSeekBar = (DividerSeekBar)findViewById(R.id.dividerSeekBar_test);
+        dividerSeekBar.setOnDividerSeekBarChangeStateListener(new DividerSeekBar.OnDividerSeekBarChangeStateListener() {
+            @Override
+            public void onProgressEnabled(DividerSeekBar dividerSeekBar, int i) {
+                Log.i("test","Enabled");
+            }
+
+            @Override
+            public void onProgressDisabled(DividerSeekBar dividerSeekBar, int i) {
+                Log.i("test","Disabled");
+            }
+        });
+
+
+        dividerSeekBar.setTextInterval(30);//텍스트 구간
+        dividerSeekBar.setDividerInterval(10);//막대 구간
+        dividerSeekBar.setSeaLineColor(github.hongbeomi.
+                dividerseekbar.R.color.light_blue_600);//가로막대 색
+        dividerSeekBar.setDividerColor(android.R.color.holo_purple); // 세로 막대 색
+        dividerSeekBar.setThumbActivatedDrawable(R.drawable.ic_launcher_foreground); // set activated thumb
+        dividerSeekBar.setThumbDefaultDrawable(R.drawable.ic_launcher_background);//TARGET
+
+        dividerSeekBar.setActiveMode(DividerSeekBar.ACTIVE_MODE_TARGET);// set target mode
+        dividerSeekBar.setActivateTargetValue(60); // set target value
+        dividerSeekBar.setActivateTargetValue(30); // set target value
+
+
+
 
         context_pid = this;
 
