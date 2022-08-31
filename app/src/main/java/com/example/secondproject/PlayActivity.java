@@ -21,6 +21,7 @@ import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -105,8 +106,10 @@ public class PlayActivity extends AppCompatActivity {
     int store[] = new int[100]; //이전 탐색 위치 저장
     int i;
 
+    //타이머
+    private Menu menu;
+    //    MenuItem menu_timer = menu.findItem(R.id.menu_timer);
     String recTime;
-    Button timer;
     //상태를 표시하는 '상수' 지정
     //- 각각의 숫자는 독립적인 개별 '상태' 의미
     public static final int INIT = 0;//처음
@@ -127,8 +130,6 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-
-        timer = (Button)findViewById(R.id.timer);
         //음악 뷰
         timeText = (TextView) findViewById(R.id.timeText);
         ImageButton play_button = (ImageButton) findViewById(R.id.play_button);
@@ -678,17 +679,6 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-
-
-        //Timer 로그
-        timer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                staButton();
-            }
-        });
-
-
     } //OnCreate
 
     private void initDataToSeekbar() {
@@ -729,15 +719,17 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
+    //키보드 키로 Log타이머 + 재생 하기
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent keyEvent) {
-        //((MyLog) MyLog.mContext).inputLog("SPACE 누름");
-
-        if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-            Log.i("test","KEYCODE_SPACE");
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_0) {
+                startTimer();
+            }
         }
-        return super.onKeyUp(keyCode, keyEvent);
+        return super.onKeyDown(keyCode, event);
     }
+
 
 
 
@@ -769,32 +761,43 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    //상단바 back버튼
+
+
+    //상단바 메뉴
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        this.menu = menu;
+
+        return true;
+    }
+
+    //'설정' 누를 시
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //노래 계속 재생돼서 추가
-        if(mp.isPlaying()){
-            mp.stop();
+//        //노래 계속 재생돼서 추가
+//        if(mp.isPlaying()){
+//            mp.stop();
+//        }
+
+        switch (item.getItemId()){
+            case R.id.menu_settings:
+                Intent settingIntent = new Intent(getApplicationContext(),Pid.class);
+                startActivity(settingIntent);
+                break;
+            case R.id.menu_timer:
+                startTimer();
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
 
-    public BitmapDrawable BitmapImage(int image)
-    {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),image);
-        Bitmap resize = Bitmap.createScaledBitmap(bitmap,200,150,true);
 
-
-        BitmapDrawable drawable = new BitmapDrawable(getResources(),resize);
-
-        return drawable;
-    }
-
-
-
-
-    private void staButton(){
+    //타이머 상단바
+    private void startTimer(){
+        MenuItem menu_timer = menu.findItem(R.id.menu_timer);
 
         switch (status){
             case INIT:
@@ -803,7 +806,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 //핸들러 실행
                 handler.sendEmptyMessage(0);
-                timer.setText("멈춤");
+                menu_timer.setTitle("멈춤");
 
                 //상태 변환
                 status = RUN;
@@ -817,7 +820,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 //정지 시간 체크
                 pauseTime = SystemClock.elapsedRealtime();
-                timer.setText("시작");
+                menu_timer.setTitle("시작");
                 //상태변환
                 status = PAUSE;
 
@@ -825,7 +828,6 @@ public class PlayActivity extends AppCompatActivity {
                 Log.i("test","타이머 == "+getTime());
                 ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
                         +((Pid)Pid.context_pid).info_task +"|"+((Pid)Pid.context_pid).info_condition+"|"+"click_timerButton_Stop"+"|"+getTime());
-
 
                 baseTime = 0;
                 pauseTime = 0;
@@ -837,7 +839,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 handler.sendEmptyMessage(0);
 
-                timer.setText("멈춤");
+                menu_timer.setTitle("멈춤");
 
                 status = RUN;
 

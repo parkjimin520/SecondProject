@@ -54,36 +54,25 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/figureImage"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp"/>
-        <TextView
-            android:id="@+id/keyword"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
 
-<!--        <SeekBar-->
-<!--            android:id="@+id/seekbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:max="50"-->
-<!--            android:progress="0"/>-->
-        <com.example.secondproject.CustomSeekBar
-            android:id="@+id/seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:max="50"
-            android:progress="0"
-            android:progressDrawable="@android:color/transparent"
-            android:thumb="@drawable/seek_thumb_normal"
-            android:thumbOffset="12dp" />
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/figureImage"
+                android:layout_width="190dp"
+                android:layout_height="190dp" />
+
+            <TextView
+                android:id="@+id/keyword"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -119,26 +108,54 @@
                 android:adjustViewBounds="true"
                 android:background="#FFFFFF"
                 android:scaleType="fitXY"/>
-
-            <Button
-                android:layout_marginLeft="100dp"
-                android:id="@+id/timer"
-                android:text="시작"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#DDD8D8">
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </ScrollView>
+            android:orientation="horizontal">
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:background="#DDD8D8">
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/timeText"
+                    android:textSize="10dp"
+                    android:text="00:00"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.example.secondproject.CustomSeekBar
+                    android:id="@+id/seekbar"
+                    android:layout_width="340dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="150dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@android:color/transparent"
+                    android:rotation="-270"
+                    android:translationX="-140dp"
+                    android:thumb="@drawable/seek_thumb_normal"
+                    android:thumbOffset="12dp" />
+
+
+                //300 30 150 120
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
