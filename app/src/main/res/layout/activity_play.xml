@@ -77,43 +77,70 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <ImageButton
-                android:id="@+id/play_button"
-                android:text="재생"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/play_icon"
-                android:adjustViewBounds="true"
-                android:background="#FFFFFF"
-                android:scaleType="fitXY"/>
-            <ImageButton
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/pause_button"
-                android:text="일시정지"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/pause_icon"
-                android:adjustViewBounds="true"
-                android:background="#FFFFFF"
-                android:scaleType="fitXY"/>
-            <ImageButton
-                android:layout_marginLeft="10dp"
-                android:id="@+id/stop_button"
-                android:text="멈춤"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/stop_icon"
-                android:adjustViewBounds="true"
-                android:background="#FFFFFF"
-                android:scaleType="fitXY"/>
+                android:layout_gravity="left">
+                <ImageView
+                    android:id="@+id/p1_button"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/p1"/>
+                <ImageView
+                    android:id="@+id/p2_button"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="참석자2"
+                    android:src="@drawable/p2"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="130dp">
+                <ImageButton
+                    android:id="@+id/play_button"
+                    android:text="재생"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/play_icon"
+                    android:adjustViewBounds="true"
+                    android:background="#FFFFFF"
+                    android:scaleType="fitXY"/>
+                <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/pause_button"
+                    android:text="일시정지"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pause_icon"
+                    android:adjustViewBounds="true"
+                    android:background="#FFFFFF"
+                    android:scaleType="fitXY"/>
+                <ImageButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/stop_button"
+                    android:text="멈춤"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/stop_icon"
+                    android:adjustViewBounds="true"
+                    android:background="#FFFFFF"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
             <ScrollView
                 android:id="@+id/scrollView"
@@ -144,16 +171,13 @@
                     android:layout_width="340dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="150dp"
-                    android:max="100"
+                    android:max="50"
                     android:progress="0"
                     android:progressDrawable="@android:color/transparent"
                     android:rotation="-270"
-                    android:translationX="-140dp"
+                    android:translationX="-145dp"
                     android:thumb="@drawable/seek_thumb_normal"
                     android:thumbOffset="12dp" />
-
-
-                //300 30 150 120
             </LinearLayout>
         </LinearLayout>
 

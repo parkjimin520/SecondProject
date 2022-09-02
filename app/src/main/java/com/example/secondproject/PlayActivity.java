@@ -1,12 +1,8 @@
 package com.example.secondproject;
 
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +15,6 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -41,11 +35,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -56,15 +47,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 //유퀴즈 러쉬
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity  {
 
     //프로그레스바 구간
-    private float totalSpan = 1500;
-    private float redSpan = 180;
-    private float blueSpan = 180;
-    private float greenSpan = 180;
-    private float yellowSpan = 180;
-    private float darkGreySpan;
+    private float totalSpan = 1000;
+    private float redSpan = 200;
+    private float orangeSpan = 220;
+    private float yellowSpan = 200;
+    private float blueSpan = 220;
+    private float greenSapn;
+
 
     private ArrayList<ProgressItem> progressItemList;
     private ProgressItem mProgressItem;
@@ -86,10 +78,11 @@ public class PlayActivity extends AppCompatActivity {
     SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
 
     //txt파일 추출
-    private String line = null;
-    private String rLine[] = new String[1000];
+    public String line = null;
+    String rLine[] = new String[1000];
     int line_count = 0;
     String timeStamp[] = new String[1000]; //타임스탬프 배열
+
 
 
     //자동 스크롤
@@ -122,7 +115,7 @@ public class PlayActivity extends AppCompatActivity {
 
     //타이머 시간 값을 저장할 변수
     private long baseTime,pauseTime;
-
+    TextView textView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -137,7 +130,7 @@ public class PlayActivity extends AppCompatActivity {
         ImageButton pause_button = (ImageButton) findViewById(R.id.pause_button);
 
         //전사
-        TextView textView = (TextView) findViewById(R.id.textView);
+        textView = (TextView) findViewById(R.id.textView);
         ImageView figureImage = (ImageView) findViewById(R.id.figureImage);
         TextView keyword = (TextView) findViewById(R.id.keyword);
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
@@ -173,57 +166,25 @@ public class PlayActivity extends AppCompatActivity {
         Button previous = (Button) findViewById(R.id.previous);
 
 
-        //txt추출 : TimeStamp, 내용 나눠서 저장
-        try {
-            BufferedReader bfRead = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.youquiz_lush)));
 
-            // 한줄씩 NULL이 아닐때까지 읽어 rLine 배열에 넣는다
-            while ((line = bfRead.readLine()) != null) {
-                rLine[line_count] = line;
-                line_count++;
+        //처음 All participant
+        setTxt(R.raw.youquiz_lush);
+
+        ImageView p1_button = (ImageView) findViewById(R.id.p1_button);
+        p1_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTxt(R.raw.participant1_lush);
             }
+        });
 
-            bfRead.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
-
-        //TextView의 TimeStamp클릭 시 이동
-        SpannableString spannableString = null;
-        for (int i = 3; i < line_count; i += 2) {
-            spannableString = new SpannableString(rLine[i]);
-            String click_time = rLine[i]; //String형 timeStamp필요
-
-            //클릭 시 할 동작
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(@NonNull View view) {
-                    String[] split = click_time.split(":");  //02:10에서 :제거
-                    String M = split[0]; //02
-                    String S = split[1]; //10
-
-                    int mesc = 0;
-                    int m = Integer.parseInt(M); //int로 변경
-                    int s = Integer.parseInt(S); //int로 변경
-                    m *= 60; //분을 초로 변경
-                    mesc = m + s; //분 초 더해서
-                    mesc *= 1000; //mesc형태로 변경
-
-                    mp.seekTo(mesc);
-                    seekBar.setProgress(mp.getCurrentPosition());
-                    timeText.setText(timeFormat.format(mp.getCurrentPosition()));
-
-                }
-            };
-
-            spannableString.setSpan(clickableSpan, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textView.append(spannableString); //clickableSpan이 적용된 timeStamp
-            textView.append("\n" + rLine[i + 1] + "\n\n");
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-
-        }
+        ImageView p2_button = (ImageView) findViewById(R.id.p2_button);
+        p2_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTxt(R.raw.participant2_lush);
+            }
+        });
 
 
         start[0] = 0; //처음엔 인덱스 0부터 검사
@@ -248,13 +209,12 @@ public class PlayActivity extends AppCompatActivity {
 
 
                     if (inputText.replace(" ", "").equals("")) { //input이 없으면 HTML적용 안 함.
-                        Log.i("test", "빈 텍스트");
                         editText.setText(null);
 
                         Toast.makeText(getApplicationContext(), "검색어가 없습니다.", Toast.LENGTH_SHORT).show();
 
                         SpannableString spannableString = null; //timestamp 색 변경
-                        for (int i = 3; i < line_count; i += 2) {
+                        for (int i = 0; i < line_count; i += 2) {
                             spannableString = new SpannableString(rLine[i]);
                             String click_time = rLine[i]; //String형 timeStamp필요
 
@@ -348,7 +308,7 @@ public class PlayActivity extends AppCompatActivity {
 
 
                         //하이라트된 text 뷰에 붙이기
-                        for (int n = 3; n < line_count; n += 2) {//HTML 따로 적용해야지 red로 바뀜
+                        for (int n = 0; n < line_count; n += 2) {//HTML 따로 적용해야지 red로 바뀜
                             //=======================================================
                             SpannableString SearchSpannable = new SpannableString(rLine[n]);
                             String click_time = rLine[n];
@@ -399,7 +359,7 @@ public class PlayActivity extends AppCompatActivity {
                         }
 
                         //새 text 뷰에 붙이기
-                        for (int n = 3; n < line_count; n += 2) {//HTML 따로 적용해야지 red로 바뀜
+                        for (int n = 0; n < line_count; n += 2) {//HTML 따로 적용해야지 red로 바뀜
                             //=======================================================
                             SpannableString SearchSpannable = new SpannableString(rLine[n]);
                             String click_time = rLine[n];
@@ -620,7 +580,7 @@ public class PlayActivity extends AppCompatActivity {
 
         recyclerView.addItemDecoration(new GridItemDecoration(30));
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);//한줄에 4개씩
         recyclerView.setLayoutManager(gridLayoutManager);
 
         arrayList = new ArrayList<>();
@@ -628,26 +588,23 @@ public class PlayActivity extends AppCompatActivity {
         arrayList.add(new SlidingList(R.drawable.lush2));
         arrayList.add(new SlidingList(R.drawable.lush3));
         arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush5));
         arrayList.add(new SlidingList(R.drawable.lush1));
         arrayList.add(new SlidingList(R.drawable.lush2));
         arrayList.add(new SlidingList(R.drawable.lush3));
         arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush5));
         arrayList.add(new SlidingList(R.drawable.lush1));
         arrayList.add(new SlidingList(R.drawable.lush2));
         arrayList.add(new SlidingList(R.drawable.lush3));
         arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush5));
         arrayList.add(new SlidingList(R.drawable.lush1));
         arrayList.add(new SlidingList(R.drawable.lush2));
         arrayList.add(new SlidingList(R.drawable.lush3));
         arrayList.add(new SlidingList(R.drawable.lush4));
-        arrayList.add(new SlidingList(R.drawable.lush1));
-        arrayList.add(new SlidingList(R.drawable.lush2));
-        arrayList.add(new SlidingList(R.drawable.lush3));
-        arrayList.add(new SlidingList(R.drawable.lush4));
-        arrayList.add(new SlidingList(R.drawable.lush1));
-        arrayList.add(new SlidingList(R.drawable.lush2));
-        arrayList.add(new SlidingList(R.drawable.lush3));
-        arrayList.add(new SlidingList(R.drawable.lush4));
+        arrayList.add(new SlidingList(R.drawable.lush5));
+
 
 
         slidingAdapter = new SlidingAdapter(arrayList);
@@ -659,18 +616,27 @@ public class PlayActivity extends AppCompatActivity {
                 if(pos == 0){
                     mp.seekTo(0);
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                    seekBar.setProgress(mp.getCurrentPosition());
                 }else if(pos == 1){
                     mp.seekTo(57000);
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                    seekBar.setProgress(mp.getCurrentPosition());
                 }else if(pos == 2){
                     mp.seekTo(138000);//2분18초 == 138초
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                    seekBar.setProgress(mp.getCurrentPosition());
                 }else if(pos == 3){
                     mp.seekTo(198000);//1분44초 == 104초
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                    seekBar.setProgress(mp.getCurrentPosition());
                 }else if(pos == 4){
                     mp.seekTo(277000);
                     timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                    seekBar.setProgress(mp.getCurrentPosition());
+                }else if(pos == 5){
+                    mp.seekTo(0);
+                    timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+                    seekBar.setProgress(mp.getCurrentPosition());
                 }
             }
         });
@@ -686,33 +652,33 @@ public class PlayActivity extends AppCompatActivity {
         // red span
         mProgressItem = new ProgressItem();
         mProgressItem.progressItemPercentage = ((redSpan / totalSpan) * 100);
-        Log.i("Mainactivity", mProgressItem.progressItemPercentage + "");
+
         mProgressItem.color = android.R.color.holo_red_dark;
         progressItemList.add(mProgressItem);
         // blue span
         mProgressItem = new ProgressItem();
-        mProgressItem.progressItemPercentage = (blueSpan / totalSpan) * 100;
+        mProgressItem.progressItemPercentage = (orangeSpan / totalSpan) * 100;
         mProgressItem.color = android.R.color.holo_orange_dark;
         progressItemList.add(mProgressItem);
         // green span
         mProgressItem = new ProgressItem();
-        mProgressItem.progressItemPercentage = (greenSpan / totalSpan) * 100;
+        mProgressItem.progressItemPercentage = (yellowSpan / totalSpan) * 100;
         mProgressItem.color = android.R.color.holo_orange_light;
         progressItemList.add(mProgressItem);
         // yellow span
         mProgressItem = new ProgressItem();
-        mProgressItem.progressItemPercentage = (yellowSpan / totalSpan) * 100;
+        mProgressItem.progressItemPercentage = (blueSpan / totalSpan) * 100;
         mProgressItem.color = android.R.color.holo_blue_dark;
         progressItemList.add(mProgressItem);
         // greyspan
         mProgressItem = new ProgressItem();
-        mProgressItem.progressItemPercentage = (darkGreySpan / totalSpan) * 100;
-        mProgressItem.color = R.color.teal_700;
+        mProgressItem.progressItemPercentage = (greenSapn / totalSpan) * 100;
+        mProgressItem.color = android.R.color.holo_green_light;
         progressItemList.add(mProgressItem);
 
-        if(seekBar == null){
-            Log.i("test","널널널널");
-        }
+//        if(seekBar == null){
+//            Log.i("test","널널널널");
+//        }
         seekBar.initData(progressItemList);
         seekBar.invalidate();
     }
@@ -775,10 +741,10 @@ public class PlayActivity extends AppCompatActivity {
     //'설정' 누를 시
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        //노래 계속 재생돼서 추가
-//        if(mp.isPlaying()){
-//            mp.stop();
-//        }
+        //노래 계속 재생돼서 추가
+        if(mp.isPlaying()){
+            mp.stop();
+        }
 
         switch (item.getItemId()){
             case R.id.menu_settings:
@@ -825,7 +791,6 @@ public class PlayActivity extends AppCompatActivity {
                 status = PAUSE;
 
                 //기록
-                Log.i("test","타이머 == "+getTime());
                 ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
                         +((Pid)Pid.context_pid).info_task +"|"+((Pid)Pid.context_pid).info_condition+"|"+"click_timerButton_Stop"+"|"+getTime());
 
@@ -872,7 +837,64 @@ public class PlayActivity extends AppCompatActivity {
     };
 
 
+    private void setTxt(int txt){
+        line_count = 0;
+        textView.setText("");
+
+        //txt추출 : TimeStamp, 내용 나눠서 저장
+        try {
+            BufferedReader bfRead = new BufferedReader(new InputStreamReader(getResources().openRawResource(txt)));
+
+            // 한줄씩 NULL이 아닐때까지 읽어 rLine 배열에 넣는다
+            while ((line = bfRead.readLine()) != null) {
+                rLine[line_count] = line;
+                line_count++;
+            }
+            bfRead.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //TextView의 TimeStamp클릭 시 이동
+        SpannableString spannableString = null;
+        for (int i = 0; i < line_count; i += 2) {
+            Log.i("test",""+rLine[i]);
+            spannableString = new SpannableString(rLine[i]);
+            String click_time = rLine[i]; //String형 timeStamp필요
+
+            //클릭 시 할 동작
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(@NonNull View view) {
+                    String[] split = click_time.split(":");  //02:10에서 :제거
+                    String M = split[0]; //02
+                    String S = split[1]; //10
+
+                    int mesc = 0;
+                    int m = Integer.parseInt(M); //int로 변경
+                    int s = Integer.parseInt(S); //int로 변경
+                    m *= 60; //분을 초로 변경
+                    mesc = m + s; //분 초 더해서
+                    mesc *= 1000; //mesc형태로 변경
+
+                    mp.seekTo(mesc);
+                    seekBar.setProgress(mp.getCurrentPosition());
+                    timeText.setText(timeFormat.format(mp.getCurrentPosition()));
+
+                }
+            };
+
+            if(spannableString.toString().trim().length()>0) {
+                spannableString.setSpan(clickableSpan, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                textView.append(spannableString); //clickableSpan이 적용된 timeStamp
+                textView.append("\n" + rLine[i + 1] + "\n\n"); //내용
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+            }else {
+                Log.i("test", "length == 0");
+            }
+        }
 
 
+    }
 
 }
