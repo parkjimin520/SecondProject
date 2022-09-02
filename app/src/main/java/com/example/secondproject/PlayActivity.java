@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -39,6 +41,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -144,12 +148,14 @@ public class PlayActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //back버튼
         //제목은 img번호와 intent구별 위해 밑에서 받음
 
-        //음원시간 표시
-        TextView toolbar_time = (TextView) findViewById(R.id.toolbar_time);
-        toolbar_time.setText(timeFormat.format(mp.getDuration()));
-        //날짜 표시
-        TextView toolbar_date = (TextView) findViewById(R.id.toolbar_date);
-        toolbar_date.setText("Oct. 13. 2021");
+//        //음원시간 표시
+//        TextView toolbar_time = (TextView) findViewById(R.id.toolbar_time);
+//        toolbar_time.setText(timeFormat.format(mp.getDuration()));
+//        //날짜 표시
+//        TextView toolbar_date = (TextView) findViewById(R.id.toolbar_date);
+//        toolbar_date.setText("Oct. 13. 2021");
+        TextView length = (TextView) findViewById(R.id.length);
+        length.setText(timeFormat.format(mp.getDuration()));
 
 
         //시크바
@@ -165,6 +171,21 @@ public class PlayActivity extends AppCompatActivity  {
         Button next = (Button) findViewById(R.id.next);
         Button previous = (Button) findViewById(R.id.previous);
 
+        //Scroll 토글
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.toggle);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    Log.i("test","ON!!");
+                    touchScroll = false;
+
+                }else{
+                    Log.i("test","OFF!!");
+                    touchScroll = true;
+                }
+            }
+        });
 
 
         //처음 All participant
