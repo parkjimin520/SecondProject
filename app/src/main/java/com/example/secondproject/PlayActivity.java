@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -87,12 +89,9 @@ public class PlayActivity extends AppCompatActivity  {
     int line_count = 0;
     String timeStamp[] = new String[1000]; //타임스탬프 배열
 
-
-
     //자동 스크롤
     ObjectAnimator AutoScroll;
     boolean touchScroll; //ScrollView를 직접 터치했는지의 여부
-
 
     //슬라이딩패널
     int imgNum;
@@ -171,6 +170,9 @@ public class PlayActivity extends AppCompatActivity  {
         Button next = (Button) findViewById(R.id.next);
         Button previous = (Button) findViewById(R.id.previous);
 
+        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+
+
         //Scroll 토글
         ToggleButton toggle = (ToggleButton) findViewById(R.id.toggle);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -187,27 +189,35 @@ public class PlayActivity extends AppCompatActivity  {
             }
         });
 
-
-        //처음 All participant
-        setTxt(R.raw.youquiz_lush);
-
-        ImageView p1_button = (ImageView) findViewById(R.id.p1_button);
-        p1_button.setOnClickListener(new View.OnClickListener() {
+        //참석자 별
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                setTxt(R.raw.participant1_lush);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position){
+                    case 0: //All
+                        setTxt(R.raw.youquiz_lush);
+                        ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
+                                +((Pid)Pid.context_pid).info_task + "|"+((Pid)Pid.context_pid).info_condition+"|"+"click_AllParticipant");
+                        break;
+                    case 1:
+                        setTxt(R.raw.participant1_lush);
+                        ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
+                                +((Pid)Pid.context_pid).info_task + "|"+((Pid)Pid.context_pid).info_condition+"|"+"click_Participant1");
+                        break;
+                    case 2:
+                        setTxt(R.raw.participant2_lush);
+                        ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
+                                +((Pid)Pid.context_pid).info_task + "|"+((Pid)Pid.context_pid).info_condition+"|"+"click_Participant2");
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
-
-        ImageView p2_button = (ImageView) findViewById(R.id.p2_button);
-        p2_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setTxt(R.raw.participant2_lush);
-            }
-        });
-
-
         start[0] = 0; //처음엔 인덱스 0부터 검사
         //검색
         editText.setOnKeyListener(new View.OnKeyListener() {
@@ -565,7 +575,7 @@ public class PlayActivity extends AppCompatActivity  {
             public boolean onTouch(View view, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        touchScroll = true; //터치가 가해짐
+//                        touchScroll = true; //터치가 가해짐
                         ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
                                 +((Pid)Pid.context_pid).info_task +"|"+((Pid)Pid.context_pid).info_condition+"|"+
                                 "touch_ScrollView");

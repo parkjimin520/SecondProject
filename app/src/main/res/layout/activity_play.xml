@@ -56,14 +56,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="230dp"
             android:orientation="vertical"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/figureImage"
-                android:layout_width="190dp"
-                android:layout_height="190dp" />
+                android:layout_width="188dp"
+                android:layout_height="193dp" />
 
             <TextView
                 android:id="@+id/keyword"
@@ -77,36 +77,20 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:orientation="horizontal">
-            <ToggleButton
-                android:id="@+id/toggle"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:checked="true"/>
-            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="left">
+
+            <Spinner
+                android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="left">
-                <ImageView
-                    android:id="@+id/p1_button"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/p1"/>
-                <ImageView
-                    android:id="@+id/p2_button"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:text="참석자2"
-                    android:src="@drawable/p2"/>
-            </LinearLayout>
+                android:entries="@array/participant"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:orientation="horizontal"
-                android:layout_marginLeft="80dp">
+                android:layout_marginLeft="30dp">
                 <ImageButton
                     android:id="@+id/play_button"
                     android:text="재생"
@@ -136,8 +120,15 @@
                     android:adjustViewBounds="true"
                     android:background="#FFFFFF"
                     android:scaleType="fitXY"/>
+
             </LinearLayout>
 
+            <ToggleButton
+                android:layout_marginLeft="50dp"
+                android:id="@+id/toggle"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
 
         </LinearLayout>
 
@@ -145,7 +136,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
             <ScrollView
                 android:id="@+id/scrollView"
@@ -168,19 +158,18 @@
                     android:text="00:00"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_height="wrap_content"/>
 
                 <com.example.secondproject.CustomSeekBar
                     android:id="@+id/seekbar"
-                    android:layout_width="340dp"
+                    android:layout_width="310dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="150dp"
                     android:max="50"
                     android:progress="0"
                     android:progressDrawable="@android:color/transparent"
                     android:rotation="-270"
-                    android:translationX="-145dp"
+                    android:translationX="-125dp"
                     android:thumb="@drawable/seek_thumb_normal"
                     android:thumbOffset="12dp" />
 
@@ -191,7 +180,7 @@
                     android:layout_gravity="center|bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="155dp" />
+                    android:layout_marginTop="145dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -213,7 +202,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="↑SlidingUpPanel↑"/>
+                android:text="→Touch←"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

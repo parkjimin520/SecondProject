@@ -30,6 +30,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         //intent
+        <activity android:name=".PlayActivity2"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        //intent
         <activity android:name=".Pid"
             android:parentActivityName=".MainActivity"/>
     </application>

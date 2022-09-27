@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="participant">
+        <item>All</item>
+        <item>P1</item>
+        <item>P2</item>
+        <item>P3</item>
+    </string-array>
+</resources>

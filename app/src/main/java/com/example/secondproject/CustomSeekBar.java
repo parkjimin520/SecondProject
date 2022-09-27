@@ -48,6 +48,7 @@ public class CustomSeekBar extends SeekBar {
                 Paint progressPaint = new Paint();
                 progressPaint.setColor(getResources().getColor(
                         progressItem.color));
+                progressPaint.setAlpha(150);//투명도
 
                 progressItemWidth = (int) (progressItem.progressItemPercentage
                         * progressBarWidth / 100);
