@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    app:umanoPanelHeight="20dp"
+    app:umanoShadowHeight="4dp"
+    app:umanoDragView="@id/dragView"
+    android:id="@+id/slidingPanel">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/play_toolbar"/>
+
+    //썸네일
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/figureImage"
+            android:layout_width="150dp"
+            android:layout_height="140dp" />
+
+        <TextView
+            android:id="@+id/keyword"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    //재생버튼
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/play_button"
+                android:text="재생"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/play_icon"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_marginLeft="10dp"
+                android:id="@+id/pause_button"
+                android:text="일시정지"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pause_icon"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:scaleType="fitXY"/>
+            <ImageButton
+                android:layout_marginLeft="10dp"
+                android:id="@+id/stop_button"
+                android:text="멈춤"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/stop_icon"
+                android:adjustViewBounds="true"
+                android:background="#FFFFFF"
+                android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    //프로그레스바
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/timeText"
+            android:textSize="10dp"
+            android:text="00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.example.secondproject.CustomSeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="600dp"
+            android:layout_height="30dp"
+            android:max="50"
+            android:progress="0"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/seek_thumb_normal"
+            android:thumbOffset="12dp" />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/length"
+            android:textSize="10dp"
+            android:text="00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </LinearLayout>
+
+
+    //SlidingUpPanel
+    <LinearLayout
+        android:id="@+id/dragView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:background="#D2DADD">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center|top">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:text="→Touch←"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

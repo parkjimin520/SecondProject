@@ -28,12 +28,20 @@
         <activity android:name=".PlayActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity android:name=".PlayActivity2"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity android:name=".PlayActivity3"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity android:name=".Horizontal1"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="landscape"/>
 
         //intent
         <activity android:name=".Pid"

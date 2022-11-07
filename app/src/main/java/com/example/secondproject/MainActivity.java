@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         arrayList.add(new VoiceList("recording1",R.drawable.billie_eilish_wordcloud));
         arrayList.add(new VoiceList("recording2",R.drawable.lush_wordcloud));
         arrayList.add(new VoiceList("recording3",R.drawable.lush_wordcloud));
+        arrayList.add(new VoiceList("Horizontal1",R.drawable.lush_wordcloud));
+
 
 
         mainAdapter = new MainAdapter(arrayList);
@@ -82,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
                     final VoiceList item = arrayList.get(pos);
 
                     Intent intent = new Intent(getApplicationContext(), PlayActivity3.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("제목",item.getTitle()); //title값 보냄
+                    getApplicationContext().startActivity(intent);
+
+                    ((MyLog)MyLog.mContext).inputLog(((Pid)Pid.context_pid).info_study+"|"+((Pid)Pid.context_pid).info_pid+"|"
+                            +((Pid)Pid.context_pid).info_task +"|"+((Pid)Pid.context_pid).info_condition+"|"+"click_title2");
+                }else if (pos == 3 ) {
+                    final VoiceList item = arrayList.get(pos);
+
+                    Intent intent = new Intent(getApplicationContext(), Horizontal1.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("제목",item.getTitle()); //title값 보냄
                     getApplicationContext().startActivity(intent);
 

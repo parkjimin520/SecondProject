@@ -2,6 +2,7 @@ package com.example.secondproject;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -67,10 +68,6 @@ public class PlayActivity2 extends AppCompatActivity  {
     private float oliveSpan= 83 ; //~51:28
     private float lightblueSpan = 40;
     private float tomatoSpan = 40;
-
-
-
-
 
     private ArrayList<ProgressItem> progressItemList;
     private ProgressItem mProgressItem;
@@ -163,7 +160,6 @@ public class PlayActivity2 extends AppCompatActivity  {
 //        toolbar_date.setText("Oct. 13. 2021");
         TextView length = (TextView) findViewById(R.id.length);
         length.setText(timeFormat.format(mp.getDuration()));
-
 
         //시크바
         seekBar = ((CustomSeekBar) findViewById(R.id.seekbar));
@@ -632,7 +628,6 @@ public class PlayActivity2 extends AppCompatActivity  {
         if(intent.hasExtra("제목")){
             String titleIntent = intent.getStringExtra("제목");
             getSupportActionBar().setTitle(titleIntent);
-
         }
 
 
@@ -730,6 +725,7 @@ public class PlayActivity2 extends AppCompatActivity  {
 
     } //OnCreate
 
+
     private void initDataToSeekbar() {
         progressItemList = new ArrayList<ProgressItem>();
         // red span
@@ -816,7 +812,6 @@ public class PlayActivity2 extends AppCompatActivity  {
 
 
 
-
     //다른 곳 클릭시, search 후 키보드 내리기
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -844,7 +839,6 @@ public class PlayActivity2 extends AppCompatActivity  {
             mp.stop();
         }
     }
-
 
 
     //상단바 메뉴
